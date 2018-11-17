@@ -24,7 +24,7 @@ public class Main {
                     pazzel_size = Integer.valueOf(read_line.trim());
                     System.out.println(Integer.valueOf(read_line.trim()));
                 } else if ((count_lines == 2)) {
-                    int[][] pazzel = new int[pazzel_size][pazzel_size];
+                    int[][] pazzel;
 
                     //System.out.println((read_line.trim()));
                     String s =read_line.trim();
