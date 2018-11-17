@@ -24,27 +24,30 @@ public class BoardGame
         this.m_direction=direction;
         this.m_prev_state =prev_state;
         this.m_numbers = new int[size][size];
+        //if this is son
         if (prev_state != null){
             this.m_depth = 1+prev_state.m_depth;
             InitBoard();
+            //if this is the root
         }else{
             this.m_depth=0;
             this.m_numbers=numbers;
         }
-
+        this.setCurrentMissingNumber();
     }
 
-    private void findMissingNumber(){
-        int[][] originalArr = this.m_prev_state.getNumbers();
+    private void setCurrentMissingNumber(){
+
         for(int raw=0;raw<this.m_size;++raw){
             for (int col=0;col<this.m_size;++col){
-                if(originalArr[raw][col] == 0){
-                    this.set_missing_prev_state(raw,col);
+                if(this.m_numbers[raw][col] == 0){
+                    this.m_current_missing[0]=raw;
+                    this.m_current_missing[1] = col;
                     break;
                 }
             }
         }
-    } 
+    }
 
     private int[][] getNumbers(){
         return m_numbers;
@@ -95,26 +98,61 @@ public class BoardGame
         return this.m_direction;
     }
 
-    private void init_boad_game(){
-
+    public boolean isWon(){
+        //check if the zero is at last place
+        if (!(this.m_current_missing[0]==m_size-1 && m_current_missing[1]==m_size-1)){
+            return false;
+        }
+        int correct_number=1;
+        for(int i=0;i<m_size;++i){
+            for (int k=0;k<m_size;++k){
+                if(this.m_numbers[i][k] != correct_number){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
-    private void turn_left(){
 
+
+    private void turn_left(){
+        if(this.m_missing_prev_state[1]<this.m_size -1)
+        {
+            //save into temp var the number we want to move left twards the 0
+            int temp_num = this.m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]+1];
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]] = temp_num;
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]+1] = 0;
+        }
     }
 
     private void turn_right(){
-
+        if(this.m_missing_prev_state[1]>0){
+            //save into temp var the number we want to move left twards the 0
+            int temp_num = this.m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]-1];
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]] = temp_num;
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]-1] = 0;
+        }
     }
 
     private void turn_down(){
+        if(this.m_missing_prev_state[1]>0)
+        {
+            //save into temp var the number we want to move left twards the 0
+            int temp_num = this.m_numbers[m_missing_prev_state[0]-1][m_missing_prev_state[1]];
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]] = temp_num;
+            m_numbers[m_missing_prev_state[0]-1][m_missing_prev_state[1]] = 0;
+        }
 
     }
 
-    private void turn_up(){
-
+    private void turn_up()
+    {
+        if(this.m_missing_prev_state[1]<this.m_size -1){
+            //save into temp var the number we want to move left twards the 0
+            int temp_num = this.m_numbers[m_missing_prev_state[0]+1][m_missing_prev_state[1]];
+            m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]] = temp_num;
+            m_numbers[m_missing_prev_state[0]+1][m_missing_prev_state[1]] = 0;
+        }
     }
-
-
-
 }
