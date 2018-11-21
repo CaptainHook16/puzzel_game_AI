@@ -10,7 +10,10 @@ public class Main {
         //System.out.println("hi");
         BufferedReader buff;
         int pazzel_size = 0;
+        int pazzel[][] = null;
 
+        //set algo user choice
+        Enum.Algorithm algo = null;//not define yet
         try (FileReader input_file = new FileReader(args[0])) {
             buff = new BufferedReader(input_file);
             int count_lines = 0;
@@ -24,11 +27,11 @@ public class Main {
                     pazzel_size = Integer.valueOf(read_line.trim());
                     System.out.println(Integer.valueOf(read_line.trim()));
                 } else if ((count_lines == 2)) {
-                    int[][] pazzel;
+                    pazzel = new int[pazzel_size][pazzel_size];
 
                     //System.out.println((read_line.trim()));
                     String s =read_line.trim();
-                    pazzel = initFirstPazelBoard(s,pazzel_size);
+                    initFirstPazelBoard(s,pazzel_size,pazzel);
                     System.out.println(Arrays.deepToString(pazzel));
 
                 }
@@ -40,20 +43,25 @@ public class Main {
             error.printStackTrace();
         }
 
+        //create first board
+        BoardGame first_board = new BoardGame(pazzel_size,pazzel,null,null);
+        first_board.printBoard();
+
+
     }
 
     //static methods in Java can be called without creating an object of the class.
     // a program execution begins from main and no object has been created yet
-    public static int[][] initFirstPazelBoard(String pazelNumber, int size) {
-        int[][] pazzel = new int[size][size];
+    public static void initFirstPazelBoard(String pazelNumber, int size,int arr[][]) {
+        //int[][] pazzel = new int[size][size];
         //Array.ConvertAll<string, int>(value.Split(','), Convert.ToInt32);
         List<String> nums = Arrays.asList(pazelNumber.split("-"));
         for (int i=0;i<size;++i){
             for (int j=0;j<size;++j){
                 int pos = j+i*size;
-                pazzel[i][j] = Integer.parseInt(nums.get(pos));
+                arr[i][j] = Integer.parseInt(nums.get(pos));
             }
         }
-        return pazzel;
+
     }
 }

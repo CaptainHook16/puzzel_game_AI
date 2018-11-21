@@ -5,8 +5,8 @@ public class BoardGame
     //declere class members
     private BoardGame m_prev_state;
     private Enum.Direction m_direction;
-    private int[] m_missing_prev_state;
-    private int[] m_current_missing;
+    private int[] m_missing_prev_state = {-1,-1};
+    private int[] m_current_missing = {-1,-1};
     private int m_depth;
     private int m_size;
     private int[][] m_numbers;
@@ -36,8 +36,22 @@ public class BoardGame
         this.setCurrentMissingNumber();
     }
 
-    private void setCurrentMissingNumber(){
+    public void printBoard(){
+        System.out.println("----------------");
+        for (int i=0;i<this.m_size;++i)
+        {
+            System.out.println();//print enter
+            for (int k=0;k<this.m_size;++k){
+                System.out.print(this.m_numbers[i][k]);
+                System.out.print(" ");
+            }
 
+        }
+        System.out.println();
+        System.out.println("---------------");
+    }
+
+    private void setCurrentMissingNumber(){
         for(int raw=0;raw<this.m_size;++raw){
             for (int col=0;col<this.m_size;++col){
                 if(this.m_numbers[raw][col] == 0){
@@ -105,12 +119,16 @@ public class BoardGame
         }
         int correct_number=1;
         for(int i=0;i<m_size;++i){
-            for (int k=0;k<m_size;++k){
-                if(this.m_numbers[i][k] != correct_number){
+            for (int k=0;k<m_size;++k)
+            {
+                if(this.m_numbers[i][k] != correct_number)
+                {
                     return false;
                 }
+                correct_number++;//update value of correct number according to position
             }
         }
+        //if get here- pass all conditions
         return true;
     }
 
