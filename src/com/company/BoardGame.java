@@ -79,6 +79,10 @@ public class BoardGame
         this.m_missing_prev_state[1]=j;
     }
 
+    public int getM_depth(){
+        return this.m_depth;
+    }
+
     private void InitBoard(){
         if (m_prev_state == null){
             return;

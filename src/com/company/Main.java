@@ -24,8 +24,15 @@ public class Main {
                     //switch algo according to user input
                     System.out.println(Integer.valueOf(read_line.trim()));
                     switch (Integer.valueOf(read_line.trim())){
+                        case 1://IDS
+                            algo = Enum.Algorithm.IDS;
+                            break;
                         case 2://BFS
                             algo = Enum.Algorithm.BFS;
+                            break;
+                        case 3:
+                            algo = Enum.Algorithm.ASTAR;
+                            break;
                     }
                 } else if (count_lines == 1) {
                     pazzel_size = Integer.valueOf(read_line.trim());
@@ -54,10 +61,14 @@ public class Main {
         switch (algo){
             case BFS:
                 algorithm = new BFSAlgo();
+                break;
+            case IDS:
+                algorithm = new IterativeDFS();
         }
         algorithm.StartAlgorithm(first_board);
         System.out.print(algorithm.findBestPath());
         System.out.print(algorithm.numberOutOfOpenList());
+        System.out.print(algorithm.thirdValueToPrint());
 
 
     }

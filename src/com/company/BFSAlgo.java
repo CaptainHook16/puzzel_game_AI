@@ -31,6 +31,7 @@ public class BFSAlgo extends Algorithms {
                 break;
             }else
             {
+
                 //get list of all optional move (valid) in the order of UP,DOWN,RIGHT,LEFT
                 List<Enum.Direction> directions = cure_board.OptionalNextMoves();
 

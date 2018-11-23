@@ -6,7 +6,7 @@ import java.util.List;
 //if a class doesn't preform all methods of interface it must declare itself as abstract
 public abstract class Algorithms implements AlgoInterface {
 
-    //protected can be seen by sybclasses or package member
+    //protected can be seen by subclasses or package member
     protected BoardGame finalBoard;
     protected BoardGame cure_board;
     protected List<BoardGame> outOpenList;
