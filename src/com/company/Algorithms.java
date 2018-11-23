@@ -13,7 +13,12 @@ public abstract class Algorithms implements AlgoInterface {
 
     //we wont implement this method here - each algo would have different implementation
     public abstract void StartAlgorithm(BoardGame firstBoard);
+    public abstract int thirdValueToPrint();
     public Algorithms(){this.outOpenList = new LinkedList<>();}
+
+    public int numberOutOfOpenList(){
+        return this.outOpenList.size();
+    }
 
     public String findBestPath()
     {

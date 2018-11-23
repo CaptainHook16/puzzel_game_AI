@@ -8,6 +8,10 @@ public class BFSAlgo extends Algorithms {
     //BFS as we know use queue - FIFO - First In First Out
     private Queue<BoardGame> m_open_list;//declare our open list
 
+    public int thirdValueToPrint(){
+        return 0;
+    }
+
     public void StartAlgorithm(BoardGame firstBoard){
 
         m_open_list = new LinkedList<>();

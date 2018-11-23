@@ -56,6 +56,8 @@ public class Main {
                 algorithm = new BFSAlgo();
         }
         algorithm.StartAlgorithm(first_board);
+        System.out.print(algorithm.findBestPath());
+        System.out.print(algorithm.numberOutOfOpenList());
 
 
     }
