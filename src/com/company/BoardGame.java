@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class BoardGame
 {
     //declere class members
@@ -49,6 +52,10 @@ public class BoardGame
         }
         System.out.println();
         System.out.println("---------------");
+    }
+
+    public BoardGame getM_prev_state(){
+        return this.m_prev_state;
     }
 
     private void setCurrentMissingNumber(){
@@ -121,7 +128,8 @@ public class BoardGame
         for(int i=0;i<m_size;++i){
             for (int k=0;k<m_size;++k)
             {
-                if(this.m_numbers[i][k] != correct_number)
+                if(this.m_numbers[i][k] != correct_number
+                && !(k == this.m_size -1 && i==this.m_size - 1))//check that the numbers in increasing order and that the last number is zero
                 {
                     return false;
                 }
@@ -154,7 +162,7 @@ public class BoardGame
     }
 
     private void turn_down(){
-        if(this.m_missing_prev_state[1]>0)
+        if(this.m_missing_prev_state[0]>0)
         {
             //save into temp var the number we want to move left twards the 0
             int temp_num = this.m_numbers[m_missing_prev_state[0]-1][m_missing_prev_state[1]];
@@ -166,11 +174,40 @@ public class BoardGame
 
     private void turn_up()
     {
-        if(this.m_missing_prev_state[1]<this.m_size -1){
+        if(this.m_missing_prev_state[0]<this.m_size -1){
             //save into temp var the number we want to move left twards the 0
             int temp_num = this.m_numbers[m_missing_prev_state[0]+1][m_missing_prev_state[1]];
             m_numbers[m_missing_prev_state[0]][m_missing_prev_state[1]] = temp_num;
             m_numbers[m_missing_prev_state[0]+1][m_missing_prev_state[1]] = 0;
         }
+    }
+
+    public int size(){
+        return this.m_size;
+    }
+
+    public List<Enum.Direction> OptionalNextMoves(){
+        List<Enum.Direction> directions = new LinkedList<>();
+        //it's important the order of check because this is the order we choose when all the successors have
+        //the same parent : UP,DOWN,RIGHT,LEFT - according to Ex1 requirements
+        if (this.m_current_missing[0] < this.m_size-1 )//if zero is no in the last row we can move up
+        {
+            directions.add(Enum.Direction.Up);
+        }
+        if (this.m_current_missing[0] > 0 )//if zero is no in the first row we can move down
+        {
+            directions.add(Enum.Direction.Down);
+        }
+
+
+        if (this.m_current_missing[1] < this.m_size - 1 )//if zero is no in the last col we can move left
+        {
+            directions.add(Enum.Direction.Left);
+        }
+        if (this.m_current_missing[1] > 0 )//if zero is no in the first col we can move right
+        {
+            directions.add(Enum.Direction.Right);
+        }
+        return directions;
     }
 }

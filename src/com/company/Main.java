@@ -23,6 +23,10 @@ public class Main {
                 if (count_lines == 0) {
                     //switch algo according to user input
                     System.out.println(Integer.valueOf(read_line.trim()));
+                    switch (Integer.valueOf(read_line.trim())){
+                        case 2://BFS
+                            algo = Enum.Algorithm.BFS;
+                    }
                 } else if (count_lines == 1) {
                     pazzel_size = Integer.valueOf(read_line.trim());
                     System.out.println(Integer.valueOf(read_line.trim()));
@@ -46,6 +50,12 @@ public class Main {
         //create first board
         BoardGame first_board = new BoardGame(pazzel_size,pazzel,null,null);
         first_board.printBoard();
+        AlgoInterface algorithm=null;
+        switch (algo){
+            case BFS:
+                algorithm = new BFSAlgo();
+        }
+        algorithm.StartAlgorithm(first_board);
 
 
     }
