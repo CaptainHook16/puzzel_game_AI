@@ -64,6 +64,8 @@ public class Main {
                 break;
             case IDS:
                 algorithm = new IterativeDFS();
+            case ASTAR:
+                algorithm = new Astar();
         }
         algorithm.StartAlgorithm(first_board);
         System.out.print(algorithm.findBestPath());

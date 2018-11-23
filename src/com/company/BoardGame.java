@@ -58,6 +58,27 @@ public class BoardGame
         return this.m_prev_state;
     }
 
+    public int calculateHuristicValue()
+    {
+        int manhattan_dist_sum = 0;
+        for (int i=0;i<m_size;++i)
+        {
+            for (int j=0;j<m_size;++j)
+            {
+                int value_at_pos = this.m_numbers[i][j];
+                if (value_at_pos != 0)
+                {
+                    int col_target = (value_at_pos - 1)%m_size;
+                    int row_target = (value_at_pos -1)/m_size;
+                    int delta_col = j - col_target;
+                    int delta_row = i - row_target;
+                    manhattan_dist_sum += Math.abs(delta_row)+Math.abs(delta_col);//update manhattan dist
+                }
+            }
+        }
+        return manhattan_dist_sum;
+    }
+
     private void setCurrentMissingNumber(){
         for(int raw=0;raw<this.m_size;++raw){
             for (int col=0;col<this.m_size;++col){
